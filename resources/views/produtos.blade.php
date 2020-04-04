@@ -6,7 +6,16 @@
         <h5>Filtro de produtos</h5>
         <form method="get" action="/produtos/search">
 {{csrf_field()}}
-<input name="search" type="search">
+<input name="observacao" type="search">
+
+
+                            <select id="categoriaProduto"name="categoria" required>
+                        @foreach( $cats as $cat )
+                        <option value="{{$cat->id}}">{{ $cat->nome }} </option>
+                        @endforeach
+                            </select>    
+
+
 <button type="submit">Buscar</button>
 </form>
 

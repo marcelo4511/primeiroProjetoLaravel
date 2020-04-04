@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Cliente;
 
@@ -95,8 +95,16 @@ class ControladorCliente extends Controller
         return redirect('/clientes');
     }
     public function search(Request $request){
-        $search = $request->input('search');
-        $clientes = Cliente::where('nome','like','%' .$search. '%')->paginate(5);
+        $search = $request->only('nome','idade');
+        
+        $clientes = Cliente::where('nome','like','%' .$search['nome']. '%')
+                             ->where('idade','like','%' .$search['idade']. '%')
+                            ->paginate(5);
+
+        if ($search = $request->only('nome','idade') == ''){
+            echo "resultado não encontrado";
+        }
+
         return view('clientes',compact('clientes'));
      
      }

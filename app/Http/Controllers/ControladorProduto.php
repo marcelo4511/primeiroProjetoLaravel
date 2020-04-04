@@ -138,10 +138,14 @@ class ControladorProduto extends Controller
         return redirect('/produtos');
     }
 
+
     public function search(Request $request){
-        $search = $request->get('search');
-        $prods = Produto::where('nome','like','%' .$search. '%')->paginate(5);
-        return view('produtos',compact('prods'));
+        $cats = Categoria::all();
+        $search = $request->only('observacao','quantidade','preco','');
+        $prods = Produto::where('nome','like','%' .$search['observacao']. '%')
+        //->where('categoria_id','like','%' .$search['categoria']. '%')
+        ->paginate(5);
+        return view('produtos',compact('prods','cats'));
      
      }
 }

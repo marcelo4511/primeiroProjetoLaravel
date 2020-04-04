@@ -34,7 +34,7 @@
                         <label for="categoriaProduto" class="control-label">Categoria</label>
                         <div class="input-group">
                             <select class="form-control" id="categoriaProduto"name="categoriaProduto" required>
-                            <option value="{{$prod->teste->id}}">{{ $prod->teste->nome }} </option>
+                            <option value="{{$prod->teste->id}}" hidden>{{ $prod->teste->nome }} </option>
                             @foreach( $cats as $cat )
                        
                         <option value="{{$cat->id}}">{{ $cat->nome }} </option>
