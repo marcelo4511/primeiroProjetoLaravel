@@ -4,15 +4,15 @@
 
 <div class="card border">
     <div class="card-body">
-        <form action="/categorias" method="POST">
+        <form action="/categorias" method="POST" onsubmit="Formulario()">
             @csrf
             <div class="form-group">
                 <label for="nomeCategoria">Nome da Categoria</label>
                 <input type="text" class="form-control" name="nomeCategoria" 
                        id="nomeCategoria" placeholder="Categoria"required>
             </div>
-            <button type="submit" class="btn btn-primary btn-sm" onclick= "return Formulario()">Salvar</button>
-            <button type="cancel" class="btn btn-danger btn-sm">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-sm" >Salvar</button>
+            <button type="cancel" onclick = "location.href='/categorias'"class="btn btn-danger btn-sm">Cancel</button>
         </form>
     </div>
     @if($errors->any())
@@ -41,3 +41,4 @@ function Formulario(){
 }
                     </script>
 @endsection
+

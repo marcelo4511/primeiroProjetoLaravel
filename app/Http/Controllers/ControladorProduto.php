@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use App\Produto;
-use App\Categoria;
+use App\models\Produto;
+use App\models\Categoria;
 
 class ControladorProduto extends Controller
 {
@@ -14,14 +13,14 @@ class ControladorProduto extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    private $totalPage = 2;
+    private $totalPage = 5;
 
-   
+    
 
     public function indexview()
     {
         $cats = Categoria::all();
-        return view('produtos',compact('cats'));
+        return view('produtos.index',compact('cats'));
     }
     public function index()
     {
@@ -32,7 +31,7 @@ class ControladorProduto extends Controller
     public function indexteste(){
         $prods = Produto::paginate($this->totalPage);
         $cats = Categoria::all();
-        return view('produtos',compact('prods','cats'));
+        return view('produtos.index',compact('prods','cats'));
     }
 
     /**
@@ -89,7 +88,7 @@ class ControladorProduto extends Controller
         $prod = Produto::find($id);
         $cats = Categoria::All();
         if(isset($prod,$cats)) {
-            return view('editarproduto', compact('prod','cats'));
+            return view('produtos.edit', compact('prod','cats'));
         }
         return redirect('/produtos');
     }
@@ -133,6 +132,7 @@ class ControladorProduto extends Controller
         */
         $prod = Produto::find($id);
         if (isset($prod)) {
+            //Request::session()->flash('status', 'O Produto '.$prod->nome.' foi removido com sucesso!');
             $prod->delete();
         }
         return redirect('/produtos');
@@ -140,12 +140,19 @@ class ControladorProduto extends Controller
 
 
     public function search(Request $request){
+        
         $cats = Categoria::all();
-        $search = $request->only('observacao','quantidade','preco','');
-        $prods = Produto::where('nome','like','%' .$search['observacao']. '%')
-        //->where('categoria_id','like','%' .$search['categoria']. '%')
+
+        $search = $request->all();
+
+        $prods = Produto::join('categorias','categorias.id', '=','produtos.categoria_id')
+        ->select('produtos.id','produtos.nome','produtos.categoria_id','produtos.observacao','produtos.preco','produtos.estoque')
+        
+        ->where('produtos.nome','like','%' .$search['nome']. '%')
+        ->where('categoria_id','like','%' .$search['categoria_id']. '%')
         ->paginate(5);
-        return view('produtos',compact('prods','cats'));
+        
+        return view('produtos.index',compact('prods','cats'));
      
      }
 }

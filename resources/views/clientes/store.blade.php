@@ -67,7 +67,7 @@
                 </div>
 @endif
 
-              </div>
+             
 
               <div class="form-group">
                 <label for="endereco">Email</label>
@@ -79,6 +79,33 @@
 {{ $errors->first('email') }}
                 </div>
 @endif
+
+<div class="form-group">
+                        <label for="categoria" class="control-label">Categoria</label>
+                        <div class="input-group">
+                            <select class="form-control" id="categoria_id" onchange="validarForm()"name="categoria_id"required>
+                            <option value="">Selecione </option>
+                        @foreach( $cats as $cat )
+                        <option value="{{$cat->id}}">{{ $cat->nome }} </option>
+                        @endforeach
+                            </select>    
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="produto_id" class="control-label">Produto</label>
+                        <div class="input-group">
+                            <select class="form-control" id="produto_id" name="produto_id" required>
+                          
+                        <option value="">Selecione </option>
+                        @foreach( $prods as $prod )
+                        <option value="{{$prod->id}}">{{ $prod->nome }} </option>
+                        @endforeach
+                            </select>    
+                        </div>
+                    </div>
+
+
               </div>
 
               <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
@@ -94,6 +121,8 @@
   </main>
   
   <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+  @component('components.footer')
+@endcomponent
 @endsection
   @section('javascript')
 <script type="text/javascript">
@@ -124,7 +153,28 @@
     if (cpf.value.length != 14) {
       return  alert("cpf inválido")
     }
-    }
+  }
+
   
+  
+       /* $('select[name=categoria_id]').change(function () {
+            var cats = $(this).val();
+            $.get('/produtos/' + cats, function (produtos) {
+                $('select[name=produto_id]').empty();
+                $.each(produtos, function (key, value) {
+                    $('select[name=produto_id]').append('<option value=' + value.id + '>' + value.nome + '</option>');
+                });
+            });
+        });*/
+       
+        function validarForm() { 
+       var optionSelect = document.getElementById("categoria_id").value;
+
+       if(optionSelect =="3" ){ 
+           document.getElementById("produto_id").disabled = false;
+       }else{
+           document.getElementById("produto_id").disabled = true;
+       }
+}
 </script>
 @endsection

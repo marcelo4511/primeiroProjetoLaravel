@@ -10,14 +10,14 @@
             <h5 class="card-title">Cadastro de Cliente</h5> 
           </div>
           <div class="card-body">
-            <form action="/clientes/{{$c->id}}" method="POST"onsubmit="mascaras()">
+            <form action="/clientes/{{$cliente->id}}" method="GET"onsubmit="mascaras()">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="form-group">
 
                 <label for="nome">Nome do Cliente</label>
                 <input type="text" 
                        class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" 
-                       name="nome"  id="nome" placeholder="Nome do Cliente"value="{{$c->nome}}" value="{{ old('nome') }}">
+                       name="nome"  id="nome" placeholder="Nome do Cliente" value="{{ old('nome',$cliente->nome) }}">
 @if ($errors->has('nome'))
                 <div class="invalid-feedback">
 {{ $errors->first('nome') }}
@@ -28,19 +28,19 @@
                 <label for="idade">Idade do Cliente</label>
                 <input type="number" 
                        class="form-control {{ $errors->has('idade') ? 'is-invalid' : '' }}" 
-                       name="idade"  id="idade" placeholder="Idade do Cliente" value="{{$c->idade}}"value="{{ old('idade') }}">
+                       name="idade"  id="idade" placeholder="Idade do Cliente" value="{{ old('idade',$cliente->idade) }}">
 @if ($errors->has('idade'))
                 <div class="invalid-feedback">
 {{ $errors->first('idade') }}
                 </div>
 @endif
-              </div>
+             
 
               <div class="form-group">
                 <label for="cpf_teste">CPF do Cliente</label>
                 <input type="string" 
                        class="form-control {{ $errors->has('cpf_teste') ? 'is-invalid' : '' }}" 
-                       name="cpf_teste" maxlength="14" id="cpf_teste" placeholder="CPF do Cliente" value="{{$c->cpf_teste}}"required onkeyup="Mascaracpf(this.cpf);"value="{{ old('cpf_teste') }}">
+                       name="cpf_teste" maxlength="14" id="cpf_teste" placeholder="CPF do Cliente" required onkeyup="Mascaracpf(this.cpf);"value="{{ old('cpf_teste',$cliente->cpf_teste) }}">
 @if ($errors->has('cpf_teste'))
                 <div class="invalid-feedback">
 {{ $errors->first('cpf_teste') }}
@@ -51,7 +51,7 @@
                 <label for="data">Data do Cliente</label>
                 <input type="date" 
                        class="form-control {{ $errors->has('data') ? 'is-invalid' : '' }}" 
-                       name="data"  id="data" placeholder="data do Cliente" value="{{ old('data') }}" value="{{$c->data}}">
+                       name="data"  id="data" placeholder="data do Cliente" value="{{ old('data',$cliente->data) }}">
 @if ($errors->has('data'))
                 <div class="invalid-feedback">
 {{ $errors->first('data') }}
@@ -62,14 +62,14 @@
                 <label for="fone">Telefone do Cliente</label>
                 <input type="string" 
                        class="form-control {{ $errors->has('fone') ? 'is-invalid' : '' }}" 
-                       name="fone" maxlength="14" id="fone" placeholder="fone do Cliente" value="{{ old('fone') }}" value="{{$c->fone}}"required onkeyup="Telefone(fone);" >
+                       name="fone" maxlength="14" id="fone" placeholder="fone do Cliente" value="{{ old('fone',$cliente->fone) }}"required onkeyup="Telefone(fone);" >
 @if ($errors->has('fone'))
                 <div class="invalid-feedback">
 {{ $errors->first('fone') }}
                 </div>
 @endif
 
-              </div>
+          
 
               
 
@@ -77,12 +77,38 @@
                 <label for="endereco">Email</label>
                 <input type="text"  
                        class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" 
-                       name="email"  id="email" placeholder="E-mail do Cliente" value="{{$c->email}}"value="{{ old('email') }}">
+                       name="email"  id="email" placeholder="E-mail do Cliente" value="{{ old('email',$cliente->email) }}">
 @if ($errors->has('email'))
                 <div class="invalid-feedback">
 {{ $errors->first('email') }}
                 </div>
 @endif
+
+<div class="form-group">
+                        <label for="categoria" class="control-label">Categoria</label>
+                        <div class="input-group">
+                            <select class="form-control" id="categoria_id" name="categoria_id"required>
+                            <option value="{{$cliente->categorias->id}}" hidden>{{$cliente->categorias->nome }} </option>
+                        @foreach( $cats as $cat )
+                        <option value="{{$cat->id}}">{{ $cat->nome }} </option>
+                        @endforeach
+                            </select>    
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="produto_id" class="control-label">Produto</label>
+                        <div class="input-group">
+                            <select class="form-control" id="produto_id" name="produto_id" required>
+                            <option value="{{$cliente->produtos->id}}" hidden>{{ $cliente->produtos->nome }} </option>
+                        @foreach( $prods as $prod )
+                        <option value="{{$prod->id}}">{{ $prod->nome }} </option>
+                        @endforeach
+                            </select>    
+                        </div>
+                    </div>
+
+
               </div>
 
               <button type="submit" class="btn btn-primary btn-sm">Salvar</button>

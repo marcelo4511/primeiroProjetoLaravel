@@ -3,42 +3,38 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Cliente;
+use App\models\Cliente;
+use App\models\Categoria;
+use App\models\Produto;
 
 class ControladorCliente extends Controller
 {
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+   private $teste;
+   
     public function index()
     {
+        $cats = Categoria::all();
+        $prods = Produto::all();
         $clientes = Cliente::all();
-        return view ('clientes', compact('clientes'));
+        return view ('clientes.index', compact('clientes','prods','cats'));
     }
 
     public function create()
     {
-        // return view('novocliente');
-        // 6)
-        return view('novocliente');
+        $cats = Categoria::all();
+        $prods = Produto::all();
+       
+        return view('clientes.store',compact('cats','prods'));
     }
 
     public function store(Request $request)
     {
-        // 3))
-        /*
-        $request->validate([
-            'nome' => 'required|min:3|unique:clientes|max:20'
-        ]);        
-        */
-
-        // 4))
-        /*
-        $request->validate([
-            'nome'  => 'required|min:3|unique:clientes|max:20',
-            'idade' => 'required|min:18',
-            'email' => 'required|email'
-        ]);        
-        */
-
-        // 5))
+        
         $regras = [
             'nome'          => 'required|min:3|unique:clientes|max:20',
             'cpf_teste'     => 'required',
@@ -57,10 +53,19 @@ class ControladorCliente extends Controller
         $request->validate($regras, $mensagens);
 
 
-        // 2)
-       $cli =  Cliente::create($request->all());
-        $cli->save();
-        return redirect('/clientes');
+       
+        $cli = Cliente::create([
+            'nome'          => $request->nome,
+            'cpf_teste'     => $request->cpf_teste,
+            'idade'         => $request->idade,
+            'fone'          => $request->fone,
+            'data'          => $request->data,
+            'email'         => $request->email,
+            'categoria_id'  => $request->categoria_id,
+            'produto_id'    => $request->produto_id
+        ]);
+        //$cli->save();
+        return redirect('clientes.index');
     }
 
     public function show($id)
@@ -70,20 +75,34 @@ class ControladorCliente extends Controller
 
     public function edit($id)
     {
-        $c = Cliente::find($id);
-        if(isset($c)) {
-            return view('editarcliente', compact('c'));
+        $cliente = Cliente::find($id);
+        $prods = Produto::All();
+        $cats = Categoria::All();
+
+        if($cliente ||$prod ||$cats) {
+            return view('clientes.edit', compact('cliente','prods','cats'));
         }
-        return redirect('/clientes');
+        return redirect('clientes.index');
     }
 
     public function update(Request $request, $id)
     {
-        $c = Cliente::find($id);
-        if(isset($c)) {
-           $c->update($request->all());  
+        $cliente = Cliente::find($id);
+        if(isset($cliente)) {
+           $cliente->update($request->all());  
+           
+           $cli = Cliente::create([
+            'nome'          => $request->nome,
+            'cpf_teste'     => $request->cpf_teste,
+            'idade'         => $request->idade,
+            'fone'          => $request->fone,
+            'data'          => $request->data,
+            'email'         => $request->email,
+            'categoria_id'  => $request->categoria_id,
+            'produto_id'    => $request->produto_id
+        ]);
         }
-        return redirect('/clientes');
+        return redirect('clientes');
     }
 
     public function destroy($id)
@@ -92,20 +111,16 @@ class ControladorCliente extends Controller
         if (isset($c)) {
             $c->delete();
         }
-        return redirect('/clientes');
+        return redirect('clientes');
     }
     public function search(Request $request){
-        $search = $request->only('nome','idade');
+        $search = $request->all();
         
         $clientes = Cliente::where('nome','like','%' .$search['nome']. '%')
-                             ->where('idade','like','%' .$search['idade']. '%')
                             ->paginate(5);
 
-        if ($search = $request->only('nome','idade') == ''){
-            echo "resultado não encontrado";
-        }
 
-        return view('clientes',compact('clientes'));
+        return view('clientes.index',compact('clientes'));
      
      }
 }

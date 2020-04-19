@@ -1,9 +1,9 @@
 <html>
     <head>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <title>Produtos</title>
+        <title>Cadastro de Produtos</title>
         <meta name="csrf-token" content="{{ csrf_token() }}">
-          <style>
+        <style>
             body {
                 padding: 20px;
             }
@@ -24,10 +24,5 @@
     </div>
     
     <script src="{{ asset('js/app.js')}}" type="text/javascript"></script>
-    <script src="{{asset('js/bootstrap-notify.min.js')}}"></script>
-      
-    @hasSection('javascript')
-    @yield('javascript')
-    @endif
 </body>
 </html>

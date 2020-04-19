@@ -15,10 +15,15 @@ Route::get('/', function () {
     return view('index');
 });
 
+
+
+Route::get('/teste'             , 'LogicaController@index');
+
+
 Route::get('/produtos'               , 'ControladorProduto@indexview');
 Route::get('/produtos'               , 'ControladorProduto@indexteste');
 Route::post('/produtos'              , 'ControladorProduto@store');
-Route::get('/produtos/apagar/{id}'   , 'ControladorProduto@destroy');
+Route::delete('/produtos/apagar/{id}'   , 'ControladorProduto@destroy');
 Route::get('/produtos/editar/{id}'   , 'ControladorProduto@edit');
 Route::post('/produtos/{id}'         , 'ControladorProduto@update');
 Route::get('/produtos/search'        , 'ControladorProduto@search');
@@ -40,10 +45,6 @@ Route::get('/clientes/apagar/{id}'   , 'ControladorCliente@destroy');
 Route::get('/clientes/editar/{id}'   , 'ControladorCliente@edit');
 Route::post('/clientes/{id}'         , 'ControladorCliente@update');
 Route::get('/clientes/search'        , 'ControladorCliente@search');
+Route::get('/produtos/{cats}'        , 'ControladorCliente@getProdutos');
 
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 

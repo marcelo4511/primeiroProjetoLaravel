@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\models\Categoria;
 
-class ControladorCategoria extends Controller
+class LogicaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,21 +12,27 @@ class ControladorCategoria extends Controller
      * @return \Illuminate\Http\Response
      */
    
+    public function index()
+    {
+        $fruta = array("44","12","30","16","23","18");
+        $teste = array("1","2","3","4","5","6","7","8","9","10");
+       
+          foreach ($teste as $key => $value){
+              //echo "1 x".$teste. "=" ;
+               echo "1 x".$value. "=".$value;
+               echo "<br>";
+           }
+       
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    
-    public function index(){
-        
-        $cats = Categoria::all();
-        return view('categorias.index',compact('cats'));
-    }
     public function create()
     {
-        return view('categorias.store');
+        //
     }
 
     /**
@@ -39,11 +43,7 @@ class ControladorCategoria extends Controller
      */
     public function store(Request $request)
     {
-         
-        $cat = new Categoria();
-        $cat->nome = $request->input('nomeCategoria');
-        $cat->save();
-        return redirect('categorias');
+        //
     }
 
     /**
@@ -54,9 +54,7 @@ class ControladorCategoria extends Controller
      */
     public function show($id)
     {
-        $cat = Categoria::find($id);
-       // dd($cat);
-        return view('categorias.show',compact('cat'));
+        //
     }
 
     /**
@@ -67,11 +65,7 @@ class ControladorCategoria extends Controller
      */
     public function edit($id)
     {
-        $cat = Categoria::find($id);
-        if(isset($cat)) {
-            return view('categorias.edit', compact('cat'));
-        }
-        return redirect('categorias.index');
+        //
     }
 
     /**
@@ -83,12 +77,7 @@ class ControladorCategoria extends Controller
      */
     public function update(Request $request, $id)
     {
-        $cat = Categoria::find($id);
-        if(isset($cat)) {
-            $cat->nome = $request->input('nomeCategoria');
-            $cat->save();
-        }
-        return redirect('categorias');
+        //
     }
 
     /**
@@ -99,50 +88,6 @@ class ControladorCategoria extends Controller
      */
     public function destroy($id)
     {
-        $cat = Categoria::find($id);
-        if (isset($cat)) {
-            $cat->delete();
-        }
-        return redirect('categorias');
-    }
-
-    
-    public function search(Request $request){
-        
-       $search = $request->get('search');
-       $cats = Categoria::where('nome','like','%' .$search. '%')->paginate(5);
-       return view('categorias.index',compact('cats'));
-    
+        //
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

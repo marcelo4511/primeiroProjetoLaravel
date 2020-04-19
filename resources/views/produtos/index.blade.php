@@ -2,21 +2,29 @@
 
 @section('body')
 
-<div class="card border">
-        <h5>Filtro de produtos</h5>
-        <form method="get" action="/produtos/search">
+<div class="card-border">
+        <form method="get" action="/produtos/search"class="form-row">
+
 {{csrf_field()}}
-<input name="observacao" type="search">
+    <div class="form-group col-md-3">
+<label class="control-label">Nome do Produto</label>
+<input name="nome"id="observacaoteste" class="form-control"type="search"required>
+</div>
+<div class="form-group col-md-3">
+<label class="control-label">Departamento</label>
+<select class="form-control"id="categoriaProdutoTeste"name="categoria_id" required>
+ <option value="">Selecione </option>
+                       
+@foreach( $cats as $cat )
+<option value="{{$cat->id}}">{{ $cat->nome }} </option>
+@endforeach
+</select>    
+</div>
 
-
-                            <select id="categoriaProduto"name="categoria" required>
-                        @foreach( $cats as $cat )
-                        <option value="{{$cat->id}}">{{ $cat->nome }} </option>
-                        @endforeach
-                            </select>    
-
-
-<button type="submit">Buscar</button>
+<div class="form-group col-md-3">
+<label class="control-label"></label><br><br>
+<button class="btn btn-primary" type="submit">Buscar</button>
+</div>
 </form>
 
          <div class="card-body">
@@ -36,7 +44,7 @@
             <tbody>
             @foreach($prods as $prod)
             <tr> 
-                    <td>{{$prod->id}}</td> 
+                    <td>{{$prod->id}}</td>
                     <td>{{$prod->nome}}</td> 
                     <td>{{$prod->estoque}}</td> 
                     <td>R$ {{number_format($prod->preco, 2,',','.')}}</td> 
@@ -47,17 +55,24 @@
                     
                     <td>
                         <a href="/produtos/editar/{{$prod->id}}" class="btn btn-sm btn-primary">Editar</a>
-                        <a href="/produtos/apagar/{{$prod->id}}" class="btn btn-sm btn-danger">Apagar</a>
+                        <a href="/produtos/apagar/{{$prod->id}}" onclick="Confirm(Deseja excluir ?)"class="btn btn-sm btn-danger">Apagar</a>
+
+                        
                     </td>
                   </tr>
             @endforeach
             </tbody>
         </table>
 {!!$prods->links()!!} 
+@if(Session::has('status'))
+        <div class="alert alert-danger">
+            {{Session::get('status')}}
+        </div>
+    @endif
        
     </div>
     <div class="card-footer">
-        <button class="btn btn-sm btn-primary" role="button" onClick="novoProduto()">Novo produto</a>
+        <button class="btn btn-sm btn-primary" role="button" onclick="novoProduto()">Novo produto</a>
     </div>
 </div>
 
@@ -74,7 +89,7 @@
                     <div class="form-group">
                         <label for="nomeProduto" class="control-label">Nome do Produto</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="nomeProduto" placeholder="Nome do produto"required>
+                            <input type="text" class="form-control" id="nomeProduto" onkeyup="maiusculo();"placeholder="Nome do produto"required>
                         </div>
                     </div>
 
@@ -90,12 +105,12 @@
                     <div class="form-group">
                         <label for="precoProduto" class="control-label">Preço</label>
                         <div class="input-group">
-                            <input type="float" class="form-control" id="precoProduto" placeholder="Preço do produto"required>
+                            <input type="decimal" class="form-control" onmouseover=""id="precoProduto"value="0,00" onclick="zerar()"onkeyup="mascarapreco()"placeholder="Preço do produto"required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="observacaoProduto" class="control-label">Observação</label>
+                        <label for="observacaoProduto"  class="fa fa-question-circle" aria-hidden="true"class="control-label">Observação</label>
                         <div class="input-group">
                             <input type="string" class="form-control" id="observacaoProduto" placeholder="Observação"required>
                         </div>
@@ -121,6 +136,9 @@
     </div>
 </div>
 
+
+@component('components.footer')
+@endcomponent
 
 @endsection
      
@@ -230,7 +248,6 @@
     
     function salvarProduto() {
         prod = { 
-            id : $("#id").val(), 
             nome: $("#nomeProduto").val(), 
             estoque: $("#quantidadeProduto").val(), 
             preco: $("#precoProduto").val(), 
@@ -277,6 +294,33 @@
         carregarCategorias();
         carregarProdutos();
     })
+    function mascarapreco(){
+        var preco = document.getElementById('precoProduto')
+        preco.value = preco.value.replace(/\D/g,"")  
+        preco.value = preco.value.replace(/([0-9]{2})$/g, ",$1");
+
+        if(preco.length > 6){
+
+         preco.value = preco.value.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+        }
+    
+        return preco 
+
+
+    }
+    function zerar(){
+        var preco = document.getElementById('precoProduto')
+        if (preco.value =='0,00'){
+            preco.value = 'null'
+        }
+       
+    }
+    function maiusculo(){
+         var preco = document.getElementById('nomeProduto').value;
+         .map(maisculo => { return nome.split(" ")
+          .map(part => part.replace(regex, l => l.toUpperCase()))
+          .join(" ");})
+    }
     
 </script>
 @endsection

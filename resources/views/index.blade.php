@@ -128,7 +128,6 @@
 
 <!-- FOOTER -->
 <footer color="black">
-        <p class="pull-right"><a href="index.html">Back to top</a></p>
         <p>© 2017 Company, Inc. · <a href="">Privacidade</a> · <a href="">Termos</a></p>
       </footer>
 

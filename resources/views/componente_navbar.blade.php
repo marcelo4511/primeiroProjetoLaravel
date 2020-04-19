@@ -20,11 +20,11 @@
       <li @if($current=="categorias") class="nav-item active" @else class="nav-item" @endif>
         <a class="nav-link" href="/categorias">Categorias </a>
       </li>
-   
 
-    <li @if($current=="contato") class="nav-item active" @else class="nav-item" @endif>
-        <a class="nav-link" href="/contato">Contate-nos </a>
+      <li @if($current=="vendas") class="nav-item active" @else class="nav-item" @endif>
+        <a class="nav-link" href="/vendas">Vendas </a>
       </li>
+
     </ul>
   </div>
 </nav>
