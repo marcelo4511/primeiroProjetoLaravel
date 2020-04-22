@@ -16,19 +16,8 @@ class ControladorProduto extends Controller
     private $totalPage = 5;
 
     
-
-    public function indexview()
-    {
-        $cats = Categoria::all();
-        return view('produtos.index',compact('cats'));
-    }
-    public function index()
-    {
-        $prods = Produto::paginate($this->$totalPage);
-        
-        return  $prods->toJson();
-    }
-    public function indexteste(){
+    
+    public function index(){
         $prods = Produto::paginate($this->totalPage);
         $cats = Categoria::all();
         return view('produtos.index',compact('prods','cats'));
@@ -41,7 +30,8 @@ class ControladorProduto extends Controller
      */
     public function create()
     {
-        //
+        $cats = Categoria::All();
+            return view('produtos.store', compact('cats'));
     }
 
     /**
@@ -53,13 +43,18 @@ class ControladorProduto extends Controller
     public function store(Request $request)
     {
         $prod = new Produto();
-        $prod->nome = $request->input('nome');
-        $prod->preco = $request->input('preco');
-        $prod->estoque = $request->input('estoque');
-        $prod->observacao = $request->input('observacao');
-        $prod->categoria_id = $request->input('categoria_id');
+        $prod->nome = $request->input('nomeProduto');
+            $prod->preco = $request->input('precoProduto');
+            $prod->estoque = $request->input('quantidadeProduto');
+            $prod->observacao = $request->input('observacaoProduto');
+            $prod->categoria_id = $request->input('categoriaProduto');
         $prod->save();
-        return redirect('/produtos');
+        /*if ($prod) {
+            return back()->with(['mensagem','um testezinho']);
+        } else {
+            return back()->with('message:error', 'Error');
+        }*/
+       return redirect('/produtos');
     }
 
     /**
@@ -123,18 +118,8 @@ class ControladorProduto extends Controller
      */
     public function destroy($id)
     {
-      /*  $prod = Produto::find($id);
-        if (isset($prod)) {
-            $prod->delete();
-            return response('OK', 200);
-        }
-        return response('Produto não encontrado', 404);
-        */
         $prod = Produto::find($id);
-        if (isset($prod)) {
-            //Request::session()->flash('status', 'O Produto '.$prod->nome.' foi removido com sucesso!');
             $prod->delete();
-        }
         return redirect('/produtos');
     }
 

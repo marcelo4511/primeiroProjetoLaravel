@@ -16,7 +16,5 @@ class Categoria extends Model
         'nome'
        
     ];
-    public function filmes(){
-        return $this->belongsTo('App\FIlme');
-    }
+   
 }

@@ -91,7 +91,7 @@ class ControladorCliente extends Controller
         if(isset($cliente)) {
            $cliente->update($request->all());  
            
-           $cli = Cliente::create([
+           /*$cli = Cliente::create([
             'nome'          => $request->nome,
             'cpf_teste'     => $request->cpf_teste,
             'idade'         => $request->idade,
@@ -100,7 +100,7 @@ class ControladorCliente extends Controller
             'email'         => $request->email,
             'categoria_id'  => $request->categoria_id,
             'produto_id'    => $request->produto_id
-        ]);
+        ]);*/
         }
         return redirect('clientes');
     }

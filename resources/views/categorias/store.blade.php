@@ -30,15 +30,6 @@
 
 @section('javascript')
 <script type="text/javascript">
-function Formulario(){
-				var nome= form.nome.value;
-				
-				if(nome==""){
-			  alert("prencha  o campo nome");
-			  form.nome.focus();
-			  return false;
-		  }
-}
-                    </script>
+</script>
 @endsection
 

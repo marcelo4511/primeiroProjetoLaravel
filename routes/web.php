@@ -20,10 +20,10 @@ Route::get('/', function () {
 Route::get('/teste'             , 'LogicaController@index');
 
 
-Route::get('/produtos'               , 'ControladorProduto@indexview');
-Route::get('/produtos'               , 'ControladorProduto@indexteste');
+Route::get('/produtos'               , 'ControladorProduto@index');
+Route::get('/produtos/novo'          , 'ControladorProduto@create');
 Route::post('/produtos'              , 'ControladorProduto@store');
-Route::delete('/produtos/apagar/{id}'   , 'ControladorProduto@destroy');
+Route::delete('/produtos/apagar/{id}', 'ControladorProduto@destroy');
 Route::get('/produtos/editar/{id}'   , 'ControladorProduto@edit');
 Route::post('/produtos/{id}'         , 'ControladorProduto@update');
 Route::get('/produtos/search'        , 'ControladorProduto@search');
@@ -48,3 +48,8 @@ Route::get('/clientes/search'        , 'ControladorCliente@search');
 Route::get('/produtos/{cats}'        , 'ControladorCliente@getProdutos');
 
 
+Route::get('/vendas'                  ,'ControladorVenda@index');
+
+Route::get('/vendas'                  ,'ControladorVendaProduto@index');
+Route::post('/vendas'                 ,'ControladorVendaProduto@store');
+Route::delete('/vendas/apagar/{id}'   ,'ControladorVendaProduto@destroy');

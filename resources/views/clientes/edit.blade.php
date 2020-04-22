@@ -10,7 +10,7 @@
             <h5 class="card-title">Cadastro de Cliente</h5> 
           </div>
           <div class="card-body">
-            <form action="/clientes/{{$cliente->id}}" method="GET"onsubmit="mascaras()">
+            <form action="/clientes/{{$cliente->id}}" method="POST"onsubmit="mascaras()">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="form-group">
 
@@ -112,7 +112,7 @@
               </div>
 
               <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
-              <button type="reset" class="btn btn-danger btn-sm">Cancelar</button>
+              <button type="reset" onclick="location.href='/clientes'"class="btn btn-danger btn-sm">Cancelar</button>
             </form>
           </div>
           
