@@ -65,7 +65,7 @@ class ControladorCliente extends Controller
             'produto_id'    => $request->produto_id
         ]);
         //$cli->save();
-        return redirect('clientes.index');
+        return redirect('clientes');
     }
 
     public function show($id)

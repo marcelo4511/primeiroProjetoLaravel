@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\models\VendaProduto;
 use App\models\Produto;
+use App\models\Cliente;
 
 class ControladorVendaProduto extends Controller
 {
@@ -21,9 +22,10 @@ class ControladorVendaProduto extends Controller
         ->select('venda_produto.id','venda_produto','venda_produto.')
         ->get();
         return view('vendas.index');*/
+        /*$clientes = Cliente::all();
         $prods = Produto::all();
         $vendas = VendaProduto::all();
-        return view ('vendas.index', compact('vendas','prods'));
+        return view ('vendas.index', compact('vendas','prods','clientes'));*/
     }
 
     /**
@@ -52,7 +54,7 @@ class ControladorVendaProduto extends Controller
             $vendaproduto->produto_id = $request->input('produto_id');
             $vendaproduto->save();
         //$v->save();
-        return redirect('vendas');
+        return redirect('vendas.teste');
     }
 
     /**

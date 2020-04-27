@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class VendaProduto extends Model
 {
-    protected $table = 'venda_produto';
+    protected $table = 'vendas_produtos';
 
     protected $date = ['updated_at','created_at'];
 
@@ -14,11 +14,14 @@ class VendaProduto extends Model
         'precovenda',
         'estoque',
         'desconto',
-        'total',
-        'produto_id'
+        'subtotal',
+        'produto_id',
+        'venda_id'
     ];
     public function produtos(){
         return $this->belongsTo(Produto::class,'produto_id');
     }
-
+    public function vendas(){
+        return $this->belongsTo(Venda::class,'venda_id');
+    }
 }

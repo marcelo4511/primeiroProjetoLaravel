@@ -11,8 +11,13 @@ class Venda extends Model
     protected $date = ['updated_at','created_at'];
 
     protected $fillable = [
-        'produtovenda_id',
+        'nomevendedor',
+        'datavenda',
+        'total',
         'cliente_id'
     ];
+    public function clientes(){
+        return $this->belongsTo(Cliente::class,'cliente_id');
+    }
 
 }

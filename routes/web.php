@@ -49,7 +49,8 @@ Route::get('/produtos/{cats}'        , 'ControladorCliente@getProdutos');
 
 
 Route::get('/vendas'                  ,'ControladorVenda@index');
+Route::get('/vendas/novo'            ,'ControladorVenda@create');
+Route::post('/vendas'               , 'ControladorVenda@store'); 
 
-Route::get('/vendas'                  ,'ControladorVendaProduto@index');
-Route::post('/vendas'                 ,'ControladorVendaProduto@store');
-Route::delete('/vendas/apagar/{id}'   ,'ControladorVendaProduto@destroy');
+/*Route::get('/vendas'                  ,'ControladorVendaProduto@index');
+Route::delete('/vendas/apagar/{id}'   ,'ControladorVendaProduto@destroy');*/

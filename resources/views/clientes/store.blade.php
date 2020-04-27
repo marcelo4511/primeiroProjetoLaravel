@@ -16,7 +16,7 @@
                 <label for="nome">Nome do Cliente</label>
                 <input type="text" 
                        class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" 
-                       name="nome"  id="nome" placeholder="Nome do Cliente" value="{{ old('nome') }}">
+                       name="nome"  id="nome"onblur="passarMaiuscula()" placeholder="Nome do Cliente" value="{{ old('nome') }}">
 @if ($errors->has('nome'))
                 <div class="invalid-feedback">
 {{ $errors->first('nome') }}
@@ -156,7 +156,13 @@
   }
 
   
-  
+  function toTitle(string, separator = ' ') {
+    word = document.getElementById('nome').value;
+  return string
+    .split(separator)
+    .map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
+    .join(separator)
+}
        /* $('select[name=categoria_id]').change(function () {
             var cats = $(this).val();
             $.get('/produtos/' + cats, function (produtos) {
@@ -167,14 +173,11 @@
             });
         });*/
        
-        function validarForm() { 
-       var optionSelect = document.getElementById("categoria_id").value;
-
-       if(optionSelect =="3" ){ 
-           document.getElementById("produto_id").disabled = false;
-       }else{
-           document.getElementById("produto_id").disabled = true;
-       }
-}
+        
+        function passarMaiuscula() {
+          word = document.getElementById('nome').value;
+          word = str.substring(0,1);
+    str = str.replace(word, word.toUpperCase());
+        }
 </script>
 @endsection
