@@ -8,7 +8,7 @@
             @csrf
             <div class="form-group">
                 <label for="nomeCategoria">Nome da Categoria</label>
-                <input type="text" class="form-control" name="nomeCategoria" 
+                <input type="text" class="form-control" name="nome" 
                        id="nomeCategoria" placeholder="Categoria"required>
             </div>
             <button type="submit" class="btn btn-primary btn-sm" >Salvar</button>

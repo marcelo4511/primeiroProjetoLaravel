@@ -27,6 +27,7 @@
                     <th>Nome do Vendedor</th>
                     <th>Nome do cliente</th>
                     <th>Data da venda</th>
+                    <th>Total</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -35,11 +36,11 @@
             <tr> 
                     <td>{{$venda->nomevendedor}}</td> 
                     <td>{{$venda->clientes->nome}}</td> 
-                    <td>{{$venda->datavenda}}</td> 
+                    <td>{{ date('d/m/Y', strtotime($venda->datavenda)) }}</td> 
+                    <td>{{$venda->total}}</td> 
                     <td>
-                        <a href="/" class="btn btn-sm btn-primary"><i class="fas fa-edit" aria-hidden="true"></i></a>
-
                         <form action="/"method="post">
+                        <a href="/" class="btn btn-sm btn-primary"><i class="fas fa-edit" aria-hidden="true"></i></a>
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
                         <button type="submit"onclick="myFunction()"style="width:30px" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>

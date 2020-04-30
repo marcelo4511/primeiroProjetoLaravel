@@ -18,6 +18,14 @@ class VendaProduto extends Model
         'produto_id',
         'venda_id'
     ];
+    protected $casts = [
+        'desconto' => 'array',
+        'precovenda' => 'array',
+        'estoque' => 'array',
+        'subtotal' => 'array',
+        'venda_id' => 'array',
+        'produto_id' => 'array'
+      ];
     public function produtos(){
         return $this->belongsTo(Produto::class,'produto_id');
     }

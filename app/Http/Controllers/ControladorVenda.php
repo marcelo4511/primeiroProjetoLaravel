@@ -48,23 +48,36 @@ class ControladorVenda extends Controller
     public function store(Request $request)
     {
         
-            /*$venda= new Venda();
+            $venda= new Venda();
             $venda->cliente_id = $request->get('cliente_id');
             $venda->nomevendedor = $request->get('nomevendedor');
             $venda->datavenda = $request->get('datavenda');
+            $venda->save();
+           
             if($venda->save()){
-              $id = $venda->id;
-              foreach ($request->$data as $key => $v){
-                  $data = new vendaProduto();
-                  $data = array('venda_id'=>$id,
-                                'produto_id'=>$v,
-                                'precovenda'=>$request->precovenda[$key],
-                                'estoque'=>$request->estoque[$key],
-                                'desconto'=>$request->desconto[$key],
-                                'subtotal'=>$request->subtotal[$key]);
-                                VendaProduto::insert($data);
-              }  
-            }*/
+                $vendaproduto = new VendaProduto;
+
+                foreach($vendaproduto as $key =>$v){
+            $v->venda_id = $request->get('venda_id');
+            $v->produto_id = $request->get('produto_id');
+            $v->precovenda = $request->get('precovenda');
+            $v->estoque = $request->get('estoque');
+            $v->desconto = $request->get('desconto');
+            $v->subtotal = $request->get('subtotal');
+            $v->save();
+                }
+            }
+            /*for($i=0,$i<count($input['produto_id']);$i++)
+            {
+             $data[]= array ('produto_id'=>$input[$i]['produto_id'],
+                             'venda_id'=>$input[$i]['venda_id']);
+                             'precovenda'=>$input[$i]['precovenda']);
+                             'estoque'=>$input[$i]['estoque']);
+                             'desconto'=>$input[$i]['desconto']);
+                             'subtotal'=>$input[$i]['subtotal']);
+            }
+            
+            Model::insert($data); // Eloquent
         
             /*$vendaproduto = new VendaProduto();
             $vendaproduto->venda_id = $request->get('venda_id');

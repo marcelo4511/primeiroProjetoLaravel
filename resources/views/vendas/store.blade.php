@@ -81,7 +81,7 @@
                 </tr>
             </thead>
            
-            </table>
+</table>
 </div>
            
           
@@ -147,11 +147,15 @@
         total = document.getElementById('subtotal').value;
 
         cell1.innerHTML = produtos;
-        cell2.innerHTML = precovenda;
-        cell3.innerHTML = estoque;
-        cell4.innerHTML = desconto;
-        cell5.innerHTML = total;               
+        cell2.innerHTML = precovenda;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+        cell3.innerHTML = estoque;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+        cell4.innerHTML = desconto;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+        cell5.innerHTML = total;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
         cell6.innerHTML =  "<button class='btn btn-sm btn-danger' onclick='removeLinha(this)'><i class='fa fa-plus' aria-hidden='true'></i></button>";
+
+        if(linha = tabela.insertRow(tabela.length)){
+            return;
+        }
 
     }
     function limpar(){
@@ -165,7 +169,7 @@
     /*function informar(){
         alert("o preço da venda é gerado conforme o lucro e afins");
     }*/
-    document.getElementById("btn").addEventListener("click", displayDate);
+    document.getElementById("btn1").addEventListener("click", displayDate);
    
     function displayDate() {
         produtos = document.getElementById('produto_id');
@@ -176,8 +180,9 @@
 
         if(produtos.value && precovenda.value && estoque.value && desconto.value && total.value){
             alert("Cadastro de produto concluído com sucesso!");
-        }else{
+        }else if(!produtos.value || !precovenda.value || !estoque.value || !desconto.value || !total.value == null){
             alert("Prencha os campos acima!");
+            return total;
         }
 }
    /* function reset(){

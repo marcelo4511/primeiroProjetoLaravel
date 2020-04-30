@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\models\Categoria;
+use App\exports\CategoriaExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class ControladorCategoria extends Controller
 {
@@ -41,7 +44,7 @@ class ControladorCategoria extends Controller
     {
          
         $cat = new Categoria();
-        $cat->nome = $request->input('nomeCategoria');
+        $cat->nome = $request->input('nome');
         $cat->save();
         return redirect('categorias');
     }
@@ -55,7 +58,7 @@ class ControladorCategoria extends Controller
     public function show($id)
     {
         $cat = Categoria::find($id);
-       // dd($cat);
+        //var_dump($cat).exit;
         return view('categorias.show',compact('cat'));
     }
 
@@ -65,6 +68,18 @@ class ControladorCategoria extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function excel(){
+        return Excel::download(new CategoriaExport, 'categoria.xlsx');
+        return view('/categorias');
+    }
+    public function pdf(){
+        $cats = Categoria::all();
+        return \PDF::loadView('categorias.index',compact('cats'))
+    
+       // $pdf->save(storage_path().'_filename.pdf');
+        // Finally, you can download the file using download function
+        ->download('categoria.pdf');
+    }
     public function edit($id)
     {
         $cat = Categoria::find($id);
@@ -114,6 +129,7 @@ class ControladorCategoria extends Controller
        return view('categorias.index',compact('cats'));
     
     }
+    
 }
 
 

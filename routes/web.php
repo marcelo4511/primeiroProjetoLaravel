@@ -12,13 +12,18 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('home');
 });
 
+Route::group(['middleware'=>'auth'],function(){
+    
+});
 
+Route::get('/teste'                  , 'LogicaController@index');
 
-Route::get('/teste'             , 'LogicaController@index');
-
+Route::get('/login'                  , 'ControladorLogin@index');
+Route::post('/login'          , 'ControladorLogin@entrar');
+Route::get('/login/sair'             , 'ControladorLogin@sair');
 
 Route::get('/produtos'               , 'ControladorProduto@index');
 Route::get('/produtos/novo'          , 'ControladorProduto@create');
@@ -37,6 +42,9 @@ Route::get('/categorias/editar/{id}' , 'ControladorCategoria@edit');
 Route::post('/categorias/{id}'       , 'ControladorCategoria@update');
 Route::get('/categorias/search'      , 'ControladorCategoria@search');
 Route::get('/categorias/{id}'        , 'ControladorCategoria@show');
+Route::get('/exportar'               , 'ControladorCategoria@excel');
+Route::get('/pdf'                    , 'ControladorCategoria@pdf');
+
 
 Route::get('/clientes/novo'          , 'ControladorCliente@create');  
 Route::get('/clientes'               , 'ControladorCliente@index');  
@@ -52,5 +60,3 @@ Route::get('/vendas'                  ,'ControladorVenda@index');
 Route::get('/vendas/novo'            ,'ControladorVenda@create');
 Route::post('/vendas'               , 'ControladorVenda@store'); 
 
-/*Route::get('/vendas'                  ,'ControladorVendaProduto@index');
-Route::delete('/vendas/apagar/{id}'   ,'ControladorVendaProduto@destroy');*/

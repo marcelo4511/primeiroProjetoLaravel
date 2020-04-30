@@ -54,15 +54,15 @@
                     <td>{{$prod->teste->nome}}</td>
                     
                     <td>
-                        <a href="/produtos/editar/{{$prod->id}}" class="btn btn-sm btn-primary"><i class="fas fa-edit" aria-hidden="true"></i></a>
 
-                        <form action="/produtos/apagar/{{$prod->id}}"method="post">
+                        <form action="/produtos/apagar/{{$prod->id}}"method="post"id="btn">
+                        <a href="/produtos/editar/{{$prod->id}}" class="btn btn-sm btn-primary"><i class="fas fa-edit" aria-hidden="true"></i></a>
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
-                        <button type="submit"onclick="myFunction()"style="width:30px" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        <button type="submit"id="btn"onsubmit="myFunction()"style="width:30px" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                     </form>
-                        
                     </td>
+                        
                   </tr>
             @endforeach
             </tbody>
@@ -116,9 +116,9 @@
     }
    
    
-    function myFunction(){
-        confirm ("zdgdfhs");
-    }
+    $(document).on('submit','#btn',function(){
+        return confirm('deseja excluir esse item???');
+    });
 
 </script>
 @endsection
