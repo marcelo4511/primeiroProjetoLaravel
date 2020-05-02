@@ -55,7 +55,7 @@
 </div>
     <div class="form-group col-sm-2">
     <label class="control-label"style="width:250px;">Estoque <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-    <input name="estoque"id="estoque" class="form-control" onblur="conta();"type="text"required>
+    <input name="estoque"id="estoque" class="form-control" onblur="conta();"type="number"required>
 </div>
     <div class="form-group col-sm-2">
     <label class="control-label"style="width:250px;">Desconto (%)</label>       
@@ -80,6 +80,12 @@
                     <th>Opções</th>
                 </tr>
             </thead>
+            <tfooter>
+                <tr>
+                    <th >Total</th>
+                    <th><input type="text"name="total"id="total"></th>
+                </tr>
+            </tfooter>
            
 </table>
 </div>
@@ -171,6 +177,14 @@
     }*/
     document.getElementById("btn1").addEventListener("click", displayDate);
    
+    document.getElementById('total').addEventListener("onblur",total);
+    document.getElementById('subtotal').addEventListener("onblur",total);
+    function total(){
+        sub = document.getElementById('subtotal').value;
+        total2 = document.getElementById('total').value;
+        total2.value = sub;
+    }
+
     function displayDate() {
         produtos = document.getElementById('produto_id');
         precovenda = document.getElementById('precovenda');
@@ -184,6 +198,7 @@
             alert("Prencha os campos acima!");
             return total;
         }
+        return;
 }
    /* function reset(){
         produtos = document.getElementById('produtos').value = '';
@@ -210,7 +225,10 @@
             alert("certinhooooooooooooooooooooo")
         }
     }
-    
+    function informar(){
+        precovenda = document.getElementById('precovenda')
+        alert('sdgdsfsvsdgvzdss dfvzdsfzsfsfdsd');
+    }
    
 </script>
 @endsection
