@@ -61,10 +61,8 @@
 </div>
 </div>
 </div>
-<footer color="black">
-        <p>© 2017 Company, Inc. · <a href="">Privacidade</a> · <a href="">Termos</a></p>
-      </footer>
 
-    </div><!-- /.container -->
+@component('components.footer')
+@endcomponent
 
 @endsection

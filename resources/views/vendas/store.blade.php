@@ -16,7 +16,7 @@
 <div class="form-group col-sm-4 ">
 <label class="control-label">Cliente</label>
 <select class="form-control"id="cliente_id" name="cliente_id">
-<option value="">Selecione</option disabled>
+<option value="">Selecione</option hidden>
 @foreach( $clientes as $cliente )
                         <option value="{{$cliente->id}}">{{ $cliente->nome }} </option>
                         @endforeach
@@ -62,8 +62,8 @@
     <input name="desconto"id="desconto" onblur="conta();"class="form-control"type="number" required>
 </div>
 <div class="form-group col-sm-2">
-    <label class="control-label"style="width:250px;">Total</label>       
-    <input name="subtotal"id="subtotal" class="form-control"type="text" value='0.00'maxlength="7"required readonly='true'>
+    <label class="control-label"style="width:250px;">Subtotal</label>       
+    <input name="subtotal"id="subtotal" onblur="totalizar()"class="form-control"type="text" value='0.00'maxlength="7"required readonly='true'>
 </div>
     <div class="form-group col-sm-3">
     <button id="btn1"class="btn btn-success"onblur="limpar()"onclick="adicionar()"><i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -230,5 +230,10 @@
         alert('sdgdsfsvsdgvzdss dfvzdsfzsfsfdsd');
     }
    
+   function totalizar(){
+        subtotal = document.getElementById('subtotal').value;
+        total = document.getElementById('total')
+        total.value = subtotal;
+   }
 </script>
 @endsection

@@ -1,7 +1,7 @@
 <html>
     <head>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <title>Cadastro de Produtos</title>
+        <title>Sistema de Vendas da LapCom</title>
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <style>
             body {

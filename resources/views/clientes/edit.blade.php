@@ -10,7 +10,7 @@
             <h5 class="card-title">Cadastro de Cliente</h5> 
           </div>
           <div class="card-body">
-            <form action="/clientes/{{$cliente->id}}" method="POST"onsubmit="mascaras()">
+            <form action="/clientes/{{$cliente->id}}" method="POST"onsubmit="mascaras();">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <div class="form-group">
 
@@ -151,7 +151,7 @@
 
     if(fone.value.length != 14) {
       alert("fone inválido")
-      return
+      return;
     }
     
     if (cpf.value.length != 14) {

@@ -16,7 +16,7 @@
                 <label for="nome">Nome do Cliente</label>
                 <input type="text" 
                        class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" 
-                       name="nome"  id="nome"onblur="passarMaiuscula()" placeholder="Nome do Cliente" value="{{ old('nome') }}">
+                       name="nome"  id="nome"onkeyup="formatanome()" placeholder="Nome do Cliente" value="{{ old('nome') }}">
 @if ($errors->has('nome'))
                 <div class="invalid-feedback">
 {{ $errors->first('nome') }}
@@ -174,10 +174,14 @@
         });*/
        
         
-        function passarMaiuscula() {
-          word = document.getElementById('nome').value;
-          word = str.substring(0,1);
-    str = str.replace(word, word.toUpperCase());
-        }
+        function formatanome(nome){
+
+        var nome = document.getElementById("nome").value;
+
+        nome = nome.toLowerCase().replace(/(?:^|\s)\S/g, function(capitalize) { return capitalize.toUpperCase(); });
+
+        document.getElementById("nome").value=nome;
+
+}
 </script>
 @endsection

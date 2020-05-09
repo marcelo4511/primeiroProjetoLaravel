@@ -12,19 +12,16 @@
 */
 
 Route::get('/', function () {
-    return view('home');
-});
-
-Route::group(['middleware'=>'auth'],function(){
-    
+    return view('auth/login');
 });
 
 Route::get('/teste'                  , 'LogicaController@index');
 
-Route::get('/login'                  , 'ControladorLogin@index');
-Route::post('/login'          , 'ControladorLogin@entrar');
-Route::get('/login/sair'             , 'ControladorLogin@sair');
 
+//Route::group(['middleware'=>'auth'],function(){
+Route::auth();
+    
+    
 Route::get('/produtos'               , 'ControladorProduto@index');
 Route::get('/produtos/novo'          , 'ControladorProduto@create');
 Route::post('/produtos'              , 'ControladorProduto@store');
@@ -56,7 +53,12 @@ Route::get('/clientes/search'        , 'ControladorCliente@search');
 Route::get('/produtos/{cats}'        , 'ControladorCliente@getProdutos');
 
 
-Route::get('/vendas'                  ,'ControladorVenda@index');
-Route::get('/vendas/novo'            ,'ControladorVenda@create');
-Route::post('/vendas'               , 'ControladorVenda@store'); 
+Route::get('/vendas'                 , 'ControladorVenda@index');
+Route::get('/vendas/novo'            , 'ControladorVenda@create');
+Route::post('/vendas'                , 'ControladorVenda@store'); 
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+//});
+
 

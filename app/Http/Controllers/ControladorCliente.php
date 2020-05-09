@@ -16,6 +16,9 @@ class ControladorCliente extends Controller
      */
    private $teste;
    
+   public function __construct(){
+       $this->middleware('auth');
+   }
     public function index()
     {
         $cats = Categoria::all();
@@ -36,7 +39,7 @@ class ControladorCliente extends Controller
     {
         
         $regras = [
-            'nome'          => 'required|min:3|unique:clientes|max:20',
+            'nome'          => 'required|min:3|unique:clientes|max:40',
             'cpf_teste'     => 'required',
             'idade'         => 'required',
             'fone'          => 'required|min:14',

@@ -16,7 +16,9 @@ class ControladorProduto extends Controller
     private $totalPage = 5;
 
     
-    
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function index(){
         $prods = Produto::paginate($this->totalPage);
         $cats = Categoria::all();
